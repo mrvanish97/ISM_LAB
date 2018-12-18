@@ -19,6 +19,7 @@ class StatisticsSample() : DiscreteRandomVariable {
 
     private var nextIndex = 0
 
+    @Synchronized
     override fun next(): Double {
         if (size == 0) {
             throw IllegalStateException(SAMPLE_IS_EMPTY)
@@ -114,21 +115,9 @@ class StatisticsSample() : DiscreteRandomVariable {
             return dispersionSum / (size - 1)
         }
 
-    fun getOverview(): String {
-        return getOverview(DEFAULT_NUMBER_OF_ELEMENTS)
-    }
-
-    fun getOverview(numberOfElements: Int): String {
-        val n = Math.min(numberOfElements, size)
-        val s = "Sample size = $size, mean = $mean, dispersion = $dispersion\n" +
-                "List of randomly selected values from sample\n" +
-                "($n out of $size elements shown)\n\n"
-        return s
-    }
-
     override val distributionName = "Statistics Sample"
 
-    override fun toString() = getOverview(size)
+    override fun toString() = "Sample size = $size, mean = $mean, dispersion = $dispersion"
 }
 
 fun statisticsSampleOf(vararg values: Double): StatisticsSample = if (values.isEmpty())

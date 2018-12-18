@@ -1,15 +1,12 @@
 package com.uonagent.iism.statisticstester
 
-import com.uonagent.iism.random.baserandom.JavaDefaultLCG
-import com.uonagent.iism.random.baserandom.SecureLCG
-import com.uonagent.iism.random.randomvariable.*
+import com.uonagent.iism.random.randomvariable.Cauchy
+import com.uonagent.iism.random.randomvariable.StatisticsSample
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 
 internal class PearsonTesterTest {
 
-    private val xi = Bernoulli(0.1, SecureLCG())
+    private val xi = Cauchy(0.0, 1.0)
 
     @Test
     fun runTest() {
@@ -18,5 +15,14 @@ internal class PearsonTesterTest {
                 xi,
                 0.05,
                 arrayListOf(-0.1, 0.7, 1.0)).runTest())
+    }
+
+    @Test
+    fun run() {
+        println(PearsonTester(
+                StatisticsSample(xi, 10000),
+                xi,
+                0.05,
+                50).runTest())
     }
 }

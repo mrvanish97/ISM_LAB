@@ -6,5 +6,6 @@ class SecureLCG : BaseRandom {
 
     private val generator = SecureRandom()
 
+    @Synchronized
     override fun next() = generator.nextDouble()
 }

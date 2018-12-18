@@ -10,6 +10,25 @@ private const val SPLIT_POINTS_EXCEPTION_MESSAGE = "Size of list must be greater
 class PearsonTester(private val xi: StatisticsSample, private val eta: RandomVariable,
                     private val eps: Double, private val splitPoints: List<Double>) : StatisticsTester() {
 
+    constructor(xi: StatisticsSample, eta: RandomVariable, eps: Double, n: Int) :
+            this(xi, eta, eps, generateSplitPoints(xi, n))
+
+    companion object {
+        private fun generateSplitPoints(sample: StatisticsSample, n: Int): List<Double> {
+            val arr = arrayListOf<Double>()
+            val lowerBound = sample.list.min()!!
+            val upperBound = sample.list.max()!!
+            val inc = (upperBound - lowerBound) / 99
+            var v = lowerBound
+            for (i in 1..99) {
+                arr.add(v)
+                v += inc
+            }
+            arr.add(upperBound)
+            return arr
+        }
+    }
+
     init {
         if (splitPoints.size < 3) {
             throw IllegalArgumentException(SPLIT_POINTS_EXCEPTION_MESSAGE)

@@ -1,6 +1,5 @@
 package com.uonagent.iism.statisticstester
 
-import com.uonagent.iism.random.randomvariable.RandomVariable
 import com.uonagent.iism.random.randomvariable.StatisticsSample
 import com.uonagent.iism.random.randomvariable.statisticsSampleOf
 
